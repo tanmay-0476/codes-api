@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: codes-api
+    runtime: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    healthCheckPath: /
+    disk:
+      name: data
+      mountPath: /opt/render/project/src
+      sizeGB: 1

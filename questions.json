@@ -1,0 +1,13 @@
+[
+  {
+    "id": 1,
+    "title": "Hello World in Node",
+    "code": "console.log(\"Hello World\");\n"
+  },
+  {
+    "id": 2,
+    "title": "Read a file synchronously",
+    "code": "const fs = require('fs');\nconst path = require('path');\n\nconst filePath = path.join(__dirname, 'sample.txt');\ntry {\n  const data = fs.readFileSync(filePath, 'utf8');\n  console.log(data);\n} catch (err) {\n  console.error('Error reading file:', err);\n}\n"
+  }
+]
+
