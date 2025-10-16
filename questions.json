@@ -1,13 +1,12 @@
 [
   {
     "id": 1,
-    "title": "Hello World in Node",
-    "code": "console.log(\"Hello World\");\n"
+    "title": "Sum two numbers from files and save result",
+    "code": "const fs = require('fs');\n\nconst data1 = fs.readFileSync('./file1.txt', 'utf8');\nconst data2 = fs.readFileSync('./file2.txt', 'utf8');\n\nconst num1 = Number(data1);\nconst num2 = Number(data2);\n\nconst sum = num1 + num2;\n\nconst result = sum.toString();\n\nfs.writeFileSync('./result.txt', result);"
   },
   {
     "id": 2,
-    "title": "Read a file synchronously",
-    "code": "const fs = require('fs');\nconst path = require('path');\n\nconst filePath = path.join(__dirname, 'sample.txt');\ntry {\n  const data = fs.readFileSync(filePath, 'utf8');\n  console.log(data);\n} catch (err) {\n  console.error('Error reading file:', err);\n}\n"
+    "title": "Async Todo Creation with File Append",
+    "code": "const fs = require(\"fs\");\nconst path = require(\"path\");\n\nconst DB_FILE_PATH = path.join(__dirname, \"db.txt\");\n\n/**\n * Converts an array of todo objects into a newline-separated string,\n * where each todo object is formatted as pretty-printed JSON.\n * This format is compatible with the expected structure of the db.txt file.\n *\n * @param {Array<Object>} Json - Array of todo objects to be converted.\n * @returns {string} Newline-separated JSON strings representing todos.\n */\nfunction JsonToDbText(Json){\n  let text = \"\";\n  Json.forEach((todo) => {\n    text += JSON.stringify(todo, null, 2) + \"\\n\";\n  });\n  return text;\n};\n\nconst createTodo = (todo) => {\n  return new Promise((res, rej) => {\n    const toDoObj = {\n      id: Date.now(),\n      title: todo,\n      isCompleted: false,\n      createdAt: new Date().toISOString(),\n      updatedAt: new Date().toISOString()\n    }\n\n    fs.appendFile(DB_FILE_PATH, JsonToDbText([toDoObj]), (err) => {\n      if (err) {\n        return rej(err);\n      }\n      else {\n        return res(todo)\n      }\n    })\n  })\n};"
   }
 ]
-
